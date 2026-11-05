@@ -4,6 +4,7 @@ pipeline {
   environment {
     DOCKERHUB_CREDENTIALS = credentials('DOCKER_HUB_CREDENTIAL')
     VERSION = "${env.BUILD_ID}"
+    PATH = "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:${env.PATH}"
   }
 
   tools {
@@ -11,6 +12,12 @@ pipeline {
   }
 
   stages {
+    stage('Build') {
+      steps {
+        sh 'docker --version'
+      }
+    }
+
     stage('Maven Build') {
       steps {
         sh 'mvn clean package -DskipTests'
@@ -77,7 +84,7 @@ pipeline {
         checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git']])
         script {
           sh '''
-            sed -i "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/" backend/order-manifest.yaml
+            sed "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/" order-manifest.yaml
           '''
           sh 'git checkout main'
           sh 'git add .'
