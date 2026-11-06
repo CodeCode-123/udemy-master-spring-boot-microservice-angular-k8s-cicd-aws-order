@@ -88,8 +88,10 @@ pipeline {
                   sh '''
                     sed -i.bak "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g" order-manifest.yaml
                   '''
+                  sh 'git stash'
                   sh 'git checkout main'
                   sh 'git pull origin main'
+                  sh 'git stash pop'
                   sh 'git add order-manifest.yaml'
                   sh 'git commit -m "Update image tag [skip ci]" || true'
                   sh 'git push origin HEAD:main'
