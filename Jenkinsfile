@@ -87,6 +87,8 @@ pipeline {
               sshagent(['git-ssh']) {
                 sh '''
                   sed 's/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g' order-manifest.yaml
+                  git config user.name "CodeCode-123"
+                  git config user.email "adatang23@yahoo.com"
                   git add order-manifest.yaml
                   git commit -m "Update image tag" || true
                   git push origin HEAD:main
