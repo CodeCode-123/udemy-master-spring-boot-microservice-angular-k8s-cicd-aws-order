@@ -88,11 +88,11 @@ pipeline {
                   sh '''
                     sed -i.bak "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g" order-manifest.yaml
                   '''
-                  git checkout main
-                  git pull origin main
-                  git add order-manifest.yaml
-                  git commit -m "Update image tag [skip ci]" || true
-                  git push origin HEAD:main
+                  sh 'git checkout main'
+                  sh 'git pull origin main'
+                  sh 'git add order-manifest.yaml'
+                  sh 'git commit -m "Update image tag [skip ci]" || true'
+                  sh 'git push origin HEAD:main'
               }
               //                   git remote set-url origin git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git
 //               script {
