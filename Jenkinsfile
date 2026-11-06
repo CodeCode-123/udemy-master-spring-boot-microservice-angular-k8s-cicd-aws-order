@@ -83,9 +83,10 @@ pipeline {
       steps {
         // Change context to the folder containing the deployment manifest files
         dir('../deployment') {
-              checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git']])
+//               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git']])
               sshagent(['git-ssh']) {
                 sh '''
+                  git remote set-url origin git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git
                   sed "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g" order-manifest.yaml
                   git checkout main
                   git pull origin main
