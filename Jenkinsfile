@@ -87,7 +87,7 @@ pipeline {
               sshagent(['git-ssh']) {
                 sh '''
                   git remote set-url origin git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git
-                  sed "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g" order-manifest.yaml
+                  sed -i "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g" order-manifest.yaml
                   git checkout main
                   git pull origin main
                   git add order-manifest.yaml
