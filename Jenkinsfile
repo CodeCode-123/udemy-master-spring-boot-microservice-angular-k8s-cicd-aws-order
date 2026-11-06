@@ -86,11 +86,13 @@ pipeline {
               checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[ credentialsId: 'git-ssh', url: 'git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git']])
               sshagent(['git-ssh']) {
                 sh '''
+                  git checkout main
+                  git pull origin main
                   sed 's/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/g' order-manifest.yaml
                   git config user.name "CodeCode-123"
                   git config user.email "adatang23@yahoo.com"
                   git add order-manifest.yaml
-                  git commit -m "Update image tag" || true
+                  git commit -m "Update image tag [skip ci]"
                   git push origin HEAD:main
                 '''
               }
