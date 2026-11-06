@@ -94,18 +94,6 @@ pipeline {
                   sh 'git commit -m "Update image tag [skip ci]" || true'
                   sh 'git push origin HEAD:main'
               }
-              //                   git remote set-url origin git@github.com:CodeCode-123/udemy-master-spring-boot-microservice-angular-k8s-cicd-aws-deployment.git
-//               script {
-//                 sh '''
-//                   sed -i "s/image:.*/image: codecode123\\/order-arm-cicd:${VERSION}/" order-manifest.yaml
-//                 '''
-//                 sh 'git checkout main'
-//                 sh 'git add .'
-//                 sh 'git commit -m "Update image tag" || true'
-//                 sshagent(['git-ssh']) {
-//                   sh('git push origin HEAD:main')
-//                 }
-//               }
         }
       }
     }
